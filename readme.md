@@ -6,7 +6,6 @@ Monkeys run and play rock, paper or scissors, made this game for the LowRezJam20
 
 [Newgrounds](https://www.newgrounds.com/portal/view/810116) <br>
 [Itch.io](https://lajbel.itch.io/monkeyrunps) <br>
-[LaJ Arcade](https://lajbel.repl.co/arcade/monkeyrunps)
 
 ### Made with
 
