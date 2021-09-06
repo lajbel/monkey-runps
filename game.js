@@ -4,8 +4,9 @@ const k = kaboom({
 	height: 64,
 	scale: 8,
 	debug: true,
+    font: "sinko",
 	// scaleMode: "stretch",
-	clearColor: [0.890, 0.474, 0.176, 1]
+	clearColor: [226, 120, 44]
 });
 
 // Load assets 
@@ -82,14 +83,14 @@ scene("menu", () => {
 	]);
 
 	const start = add([
-		text("Space or enter for start", 2.5),
+		text("Any key for play", {size: 2.5}),
 		pos(width() / 2, 60),
 		origin("center")
 	]);
 
 	loop(bananaSpawnTime, () => {
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(-72, -7),
 			scale(0.6),
 			origin("center"),
@@ -98,7 +99,7 @@ scene("menu", () => {
 		]);
 		
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(-59, -7),
 			scale(0.6),
 			origin("center"),
@@ -107,7 +108,7 @@ scene("menu", () => {
 		]);
 
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(-46, -7),
 			scale(0.6),
 			origin("center"),
@@ -116,7 +117,7 @@ scene("menu", () => {
 		]);
 
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(-33, -7),
 			scale(0.6),
 			origin("center"),
@@ -125,7 +126,7 @@ scene("menu", () => {
 		]);
 
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(-20, -7),
 			scale(0.6),
 			origin("center"),
@@ -134,7 +135,7 @@ scene("menu", () => {
 		]);
 
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(-7, -7),
 			scale(0.6),
 			origin("center"),
@@ -143,7 +144,7 @@ scene("menu", () => {
 		]);
 		
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(3, -7),
 			scale(0.6),
 			origin("center"),
@@ -152,7 +153,7 @@ scene("menu", () => {
 		]);
 
 		add([
-			sprite("banana", {noArea: true}),
+			sprite("banana"),
 			pos(16, -7),
 			scale(0.6),
 			origin("center"),
@@ -190,7 +191,7 @@ scene("menu", () => {
 
 	action(() => {
 		if(keyIsPressed("enter") || keyIsPressed("space")) {
-			go("game", false);
+			go("game");
 		};
 	});
 
@@ -203,7 +204,7 @@ scene("menu", () => {
 	});
 });
 
-scene("game", (ia) => {
+scene("game", () => {
 	const m = play("music");
 	m.loop();
 	
@@ -214,8 +215,6 @@ scene("game", (ia) => {
 	let FRAME_POS = {x: 0, y: 44};
 
 	layers(["bakground", "game", "kaka", "ui"], "game");
-	camIgnore(["ui"]);
-	gravity(90);
 
 	add([
 		rect(width(), height()),
@@ -224,14 +223,14 @@ scene("game", (ia) => {
 	])
 
 	add([
-		sprite("jump_bg", {noArea: true}),
+		sprite("jump_bg"),
 		pos(0, 0),
 		layer("background"),
 		"background"
 	]);
 
 	add([
-		sprite("jump_bg", {noArea: true}),
+		sprite("jump_bg"),
 		pos(width(), 0),
 		layer("background"),
 		"background"
@@ -240,7 +239,7 @@ scene("game", (ia) => {
 	add([
 		rect(width(), 20),
 		pos(0, 44),
-		color(rgb(0.149, 0.545, 0.537)),
+		color(37, 138, 136),
 		layer("ui")
 	]);
 
@@ -248,6 +247,7 @@ scene("game", (ia) => {
 		sprite("kario_rock"),
 		pos(FRAME_POS.x + 15, FRAME_POS.y + 1),
 		scale(0.4),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -255,6 +255,7 @@ scene("game", (ia) => {
 		sprite("kario_paper"),
 		pos(FRAME_POS.x + 15, FRAME_POS.y + 7),
 		scale(0.4),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -262,6 +263,7 @@ scene("game", (ia) => {
 		sprite("kario_scissors"),
 		pos(FRAME_POS.x + 15, FRAME_POS.y + 13),
 		scale(0.4),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -269,6 +271,7 @@ scene("game", (ia) => {
 		sprite("kaka_rock", {flipX: true}),
 		pos(FRAME_POS.x + 49, FRAME_POS.y + 1),
 		scale(0.4),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -277,6 +280,7 @@ scene("game", (ia) => {
 		sprite("kaka_paper", {flipX: true}),
 		pos(FRAME_POS.x + 49, FRAME_POS.y + 7),
 		scale(0.4),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -285,6 +289,7 @@ scene("game", (ia) => {
 		sprite("kaka_scissors", {flipX: true}),
 		pos(FRAME_POS.x + 49, FRAME_POS.y + 13),
 		scale(0.4),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -293,6 +298,7 @@ scene("game", (ia) => {
 		sprite("kario_face"),
 		pos(FRAME_POS.x + 1, FRAME_POS.y + 2),
 		scale(0.8),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -300,6 +306,7 @@ scene("game", (ia) => {
 		sprite("kaka_face", {flipX: true}),
 		pos(63, FRAME_POS.y + 2),
 		scale(0.8),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -308,6 +315,7 @@ scene("game", (ia) => {
 		sprite("banana"),
 		pos(FRAME_POS.x + 1, FRAME_POS.y + 13),
 		scale(0.7),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -315,6 +323,7 @@ scene("game", (ia) => {
 		sprite("banana"),
 		pos(FRAME_POS.x + 5, FRAME_POS.y + 13),
 		scale(0.7),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -322,6 +331,7 @@ scene("game", (ia) => {
 		sprite("banana"),
 		pos(FRAME_POS.x + 9, FRAME_POS.y + 13),
 		scale(0.7),
+        fixed(),
 		layer("ui")
 	]);
 
@@ -329,6 +339,7 @@ scene("game", (ia) => {
 		sprite("banana", {flipX: true}),
 		pos(width() - 1, FRAME_POS.y + 13),
 		scale(0.7),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -337,6 +348,7 @@ scene("game", (ia) => {
 		sprite("banana", {flipX: true}),
 		pos(width() - 5, FRAME_POS.y + 13),
 		scale(0.7),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -345,6 +357,7 @@ scene("game", (ia) => {
 		sprite("banana", {flipX: true}),
 		pos(width() - 9, FRAME_POS.y + 13),
 		scale(0.7),
+        fixed(),
 		origin("topright"),
 		layer("ui")
 	]);
@@ -353,6 +366,7 @@ scene("game", (ia) => {
 		text("", 9),
 		pos(width() / 2, height() - 8),
 		origin("center"),
+        fixed(),
 		layer("ui"),
 		{
 			counter: SELECTION_TIME + 1,
@@ -467,7 +481,7 @@ scene("game", (ia) => {
 
 		play("sc");
 
-		wait(0.5, () => camShake(0.5));
+		wait(0.5, () => shake(0.5));
 		
 		wait(1.5, () => {
 			cancelMoveSelections();
@@ -518,7 +532,7 @@ scene("game", (ia) => {
 	// Events
 
 	kario.on("dead", () => {
-		camShake(3);
+		shake(3);
 		play("trr");
 		
 		const cancelMove = action(() => {
@@ -539,7 +553,7 @@ scene("game", (ia) => {
 	});
 
 	kaka.on("dead", () => {
-		camShake(3);
+		shake(3);
 		play("trr");
 		
 		const cancelMove = action(() => {
@@ -561,7 +575,7 @@ scene("game", (ia) => {
 
 	kario.on("loose", () => {
 		play("bum", {volume: 0.5})
-		camShake(1)
+		shake(1)
 
 		const destroyLoose = action(() => {
 			kario.move(-5, 0);
@@ -575,7 +589,7 @@ scene("game", (ia) => {
 
 	kaka.on("loose", () => {
 		play("bum", {volume: 0.5})
-		camShake(1)
+		shake(1)
 
 		const destroyLoose = action(() => {
 			kaka.move(-5, 0);
