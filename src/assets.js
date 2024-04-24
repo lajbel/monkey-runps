@@ -4,6 +4,10 @@ import { k } from "./engine";
 
 k.loadBitmapFont("unscii", "./fonts/unscii.png", 8, 8);
 
+k.loadAseprite("p1", "sprites/game/p1/p1.png", "sprites/game/p1/p1.json");
+k.loadAseprite("p2", "sprites/game/p2/p2.png", "sprites/game/p2/p2.json");
+k.loadSprite("runway", "sprites/game/runway/runway.png");
+
 k.loadSound("music", "./sounds/music.ogg");
 k.loadSound("trr", "./sounds/trr.wav");
 k.loadSound("sc", "./sounds/sc.wav");

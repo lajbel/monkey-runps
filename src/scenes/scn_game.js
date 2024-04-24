@@ -1,7 +1,7 @@
 import { k } from "../engine.js";
 
 k.scene("game", (isTwoPlayers) => {
-    const backgroundMusic = play("music", {
+    const backgroundMusic = k.play("music", {
         loop: true,
         volume: 0.3,
         speed: 1.0,
@@ -9,15 +9,15 @@ k.scene("game", (isTwoPlayers) => {
 
     let canSelect = true;
 
-    add([
-        sprite("jump_bg"),
+    k.add([
+        sprite("runway"),
         pos(0, 0),
         z(1),
         "background",
     ]);
 
     add([
-        sprite("jump_bg"),
+        sprite("runway"),
         pos(width(), 0),
         z(1),
         "background",
@@ -147,7 +147,7 @@ k.scene("game", (isTwoPlayers) => {
     // The mein monkeys
 
     const kario = add([
-        sprite("kario", { anim: "run" }),
+        sprite("p1", { anim: "run" }),
         pos(25, 7),
         z(3),
         "kario",
@@ -159,7 +159,7 @@ k.scene("game", (isTwoPlayers) => {
     ]);
 
     const kaka = add([
-        sprite("kaka", { anim: "run" }),
+        sprite("p2", { anim: "run" }),
         pos(25, 23),
         z(3),
         "kaka",
@@ -214,7 +214,7 @@ k.scene("game", (isTwoPlayers) => {
     // this code is trash. IK
 
     function startBattle() {
-        const cancelCount = loop(1, () => {
+        const countLoop = k.loop(1, () => {
             if (stateText.counter === 0) return;
 
             stateText.use(sprite(stateText.counter.toString()));
@@ -224,7 +224,7 @@ k.scene("game", (isTwoPlayers) => {
         });
 
         wait(3, () => {
-            cancelCount();
+            countLoop.cancel();
             canSelect = false;
 
             stateText.unuse("sprite");
@@ -241,7 +241,7 @@ k.scene("game", (isTwoPlayers) => {
         const s1Pos = s1?.pos?.clone();
         const s2Pos = s2?.pos?.clone();
 
-        const cancelMoveSelections = onUpdate(() => {
+        const moveSelections = k.onUpdate(() => {
             if (s1) s1.moveTo(-4, 11, 30);
             if (s2) s2.moveTo(4, 11, 30);
         });
@@ -259,16 +259,16 @@ k.scene("game", (isTwoPlayers) => {
             else if (kaka.selection === "scissors" && kario.selection === "paper") loose(kario);
             else if (!kaka.selection && kario.selection) loose(kaka);
 
-            const cancelBackSelections = onUpdate(() => {
+            const backSelections = k.onUpdate(() => {
                 if (s1) s1.moveTo(s1Pos, 30);
                 if (s2) s2.moveTo(s2Pos, 30);
             });
 
-            cancelMoveSelections();
+            moveSelections.cancel();
             canSelect = true;
 
             wait(1.5, () => {
-                cancelBackSelections();
+                backSelections.cancel();
 
                 kario.selection = "";
                 kaka.selection = "";
@@ -282,9 +282,9 @@ k.scene("game", (isTwoPlayers) => {
         play("trr");
         shake(3);
 
-        const cancelMove = onUpdate(() => {
+        const move = k.onUpdate(() => {
             if (ch.pos.x < 25) ch.move(25, 0);
-            else cancelMove();
+            else move.cancel();
         });
 
         const bananaToDelete = ch.bananas.pop();
@@ -309,12 +309,12 @@ k.scene("game", (isTwoPlayers) => {
         ch.face.play("cry");
         alt.face.play("happy");
 
-        const destroyLoose = onUpdate(() => {
+        const loose = k.onUpdate(() => {
             ch.move(-10, 0);
         });
 
         wait(1.5, () => {
-            destroyLoose();
+            loose.cancel();
 
             ch.face.play("normal");
             alt.face.play("normal");
