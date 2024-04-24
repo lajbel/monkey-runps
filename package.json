@@ -1,0 +1,17 @@
+{
+	"scripts": {
+		"build": "esbuild --bundle src/main.js --outfile=www/main.js --minify",
+		"dev": "esbuild --bundle src/main.js --outfile=www/main.js --servedir=www --sourcemap",
+		"bundle": "npm run build && mkdir -p dist && zip -r dist/game.zip www -x \"**/.DS_Store\""
+	},
+	"dependencies": {
+		"dprint": "^0.45.1",
+		"kaboom": "3000.1.17",
+		"kaboom-extra": "^0.1.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.7.1",
+		"esbuild": "^0.20.2",
+		"kiboom": "^1.0.5"
+	}
+}
